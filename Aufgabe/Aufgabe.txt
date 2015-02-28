@@ -1,0 +1,20 @@
+Thema: Tamburrino-Tonemapping für photographische Bilder
+Vorgabe: Programmierung in Matlab
+ 
+- Verarbeitungsablauf so einrichten, daﬂ der Algorithmus auf demosaicked linearen RGB-Daten arbeiten kann
+- Implementierung des Tonemapping Operators wie im Fachbeitrag beschrieben
+
+- Untersuchung der Parametrierung (Wirkung von Einstellfaktoren und Filtergrößen), Demo der Wirkung an Bildbeispielen (Maskierwirkung, Artefakte)
+
+Fragen:
+- Einfluss auf die Farbgebung (lokaler Weißabgleich, Farbveränderung)?
+- Lässt sich der Algo auch sinnvoll auf logarithmisches Luminanzsignal anwenden?
+- Mit welchen Parametern lässt sich die Maskierungsstärke anpassen, evtl. so dass der Zielkontrast konstant wird?
+
+- Demonstration einer automatischen Parameter-Steuerung an Bildbeispielen  (neben dem mitgelieferten Bild bitte auch die Bildbeispiele aus Praktikum DBT verwenden)
+
+- Interpretation der Ergebnisse (Vergleich mit Photoreceptor-Verfahren), Verbesserungsvorschläge
+
+Literatur:
+- Tamburrino et al., Digital camera workflow for high dynamic range images usinga model of retinal processing
+
