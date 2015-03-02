@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 02-Mar-2015 11:46:44
+% Last Modified by GUIDE v2.5 02-Mar-2015 12:34:54
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -175,6 +175,10 @@ myControl.ganglion.gauss.sigma = get(handles.ganglionGaussSigma, 'Value');
 
 myControl.demosaic = get(handles.demosaicToggle, 'Value');
 
+myControl.GradationOffset.Offset = get(handles.offsetSlider, 'Value');
+myControl.GradationOffset.RGBGradation = get(handles.gradationSlider, 'Value');
+
+
 Iout = process(myControl, handles.image);
 imshow(Iout, 'parent', handles.axes2);
 
@@ -261,3 +265,53 @@ function demosaicToggle_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of demosaicToggle
+
+
+% --- Executes on slider movement.
+function gradationSlider_Callback(hObject, eventdata, handles)
+% hObject    handle to gradationSlider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+value = get(hObject,'Value');
+caption = sprintf('Gradation: %.3f', value);
+set(handles.gradationLabel, 'String', caption);
+
+
+% --- Executes during object creation, after setting all properties.
+function gradationSlider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to gradationSlider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function offsetSlider_Callback(hObject, eventdata, handles)
+% hObject    handle to offsetSlider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+value = get(hObject,'Value');
+caption = sprintf('Offset: %.3f', value);
+set(handles.offsetLabel, 'String', caption);
+
+
+% --- Executes during object creation, after setting all properties.
+function offsetSlider_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to offsetSlider (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end

@@ -1,9 +1,7 @@
 function Iout = im2mosaic( Iin )
 %IM2MOSAIC Convert linear rgb image to mosaiced image
 %
-
-Iin = double(Iin);
-Iin = Iin/max(Iin(:));
+Iin = im2double(Iin);
 
 [H W P]=size(Iin);
 Iout = zeros(size(Iin,1),size(Iin,2),1);

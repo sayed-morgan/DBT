@@ -4,8 +4,7 @@ function Iout = process( myControl, image )
 if myControl.demosaic
     CFA = im2mosaic(image);
 else
-    CFA = double(image);
-    CFA = CFA/max(CFA(:));
+    CFA = im2double(image);
 end
 %imdisplay(CFA, 'CFA');
 
@@ -23,12 +22,21 @@ Imga = tonemap(Imbi, myControl.ganglion.Kappa, myControl.ganglion.gauss.size, my
 if myControl.demosaic
     I16bit = im2uint16(Imga);
     Idem = demosaic(I16bit, 'rggb');
-    Iout = Idem;
+    Iout = im2double(Idem);
 else
     Iout = Imga;
 end
 
+%normalize
+% Iout = normalizeImage( Iout, myControl.WB.DeltaD);
+
+% gradation & offset
+disp(myControl.GradationOffset.RGBGradation);
+disp(myControl.GradationOffset.Offset);
+Iout = Iout.* myControl.GradationOffset.RGBGradation - myControl.GradationOffset.Offset;
+
 % convert to sRGB
+Iout = im2uint16(Iout);
 Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', '*sRGB'); 
 disp(min(Iout(:)));
 disp(max(Iout(:)));
