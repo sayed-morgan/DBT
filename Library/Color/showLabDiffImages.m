@@ -1,8 +1,7 @@
-function showLabDiffImages( theI1LabPatchImage, theCamLabPatchImage, theGridFactor, theInternalSizeFactor)
+function showLabDiffImages( theI1LabPatchImage, theCamLabPatchImage, theGridFactor, theInternalSizeFactor, theAdditiveTitle)
 
-myOpt = ['-t1 -i ', '*Lab', ' -o ', '*sRGB'];
-myProofImageI1 = imresize( icctrans( theI1LabPatchImage, myOpt), theGridFactor);
-myProofImageCam = imresize( icctrans( theCamLabPatchImage, myOpt), theGridFactor);
+myProofImageI1 = imresize( imColorTransform( theI1LabPatchImage, '*Lab', '*sRGB'), theGridFactor, 'nearest');
+myProofImageCam = imresize( imColorTransform( theCamLabPatchImage, '*Lab', '*sRGB'), theGridFactor, 'nearest');
 
 % imdisplay( myProofImageI1, 'I1', 1);
 % imdisplay( myProofImageCam, 'Cam', 1);
@@ -22,7 +21,7 @@ end
 myMergedImage = myProofImageI1( :, :, 1) .* (-myMaskImage+1) + myProofImageCam( :, :, 1) .* myMaskImage;
 myMergedImage( :, :, 2) = myProofImageI1( :, :, 2) .* (-myMaskImage+1) + myProofImageCam( :, :, 2) .* myMaskImage;
 myMergedImage( :, :, 3) = myProofImageI1( :, :, 3) .* (-myMaskImage+1) + myProofImageCam( :, :, 3) .* myMaskImage;
-imdisplay( myMergedImage, 'I1/CAM', 1);
+imdisplay( myMergedImage, [ theAdditiveTitle, ' reference(outer)/actual'], 1);
 
 % myMergedImageControl = myProofImageI1( :, :, 1) .* (-myMaskImage+1);
 % myMergedImageControl( :, :, 2) = myProofImageI1( :, :, 2) .* (-myMaskImage+1);

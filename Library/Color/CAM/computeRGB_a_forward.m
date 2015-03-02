@@ -13,4 +13,4 @@ myRGB_C( 3, :) = myRGB( 3, :) * myD_RGB( 3);
 
 myRGB_ = myM_HPE_CAT02 * myRGB_C;
 
-theRGB_a = 400*(((myF_L * myRGB_ / 100).^0.42) ./ ( ((myF_L * myRGB_ / 100).^0.42)+27.13)) + 0.1;
+theRGB_a = real( 400*(((myF_L * myRGB_ / 100).^0.42) ./ ( ((myF_L * myRGB_ / 100).^0.42)+27.13)) + 0.1);

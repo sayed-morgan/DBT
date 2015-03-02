@@ -1,4 +1,4 @@
-function showLabDifferenceDiagram( theLabSoll, theLabIst, theRange)
+function showLabDifferenceDiagram( theLabSoll, theLabIst, theRange, theAdditiveTitle)
 
 myNumLab = size( theLabSoll, 1);
 
@@ -10,7 +10,7 @@ myRange_bMax = theRange( 4);
 C = makecform('lab2srgb');
 myLDraw = 60;
 
-my_ab_Figure = figure('Name','Color Differences a-b', 'NumberTitle', 'off');
+my_ab_Figure = figure('Name',[ theAdditiveTitle, ' Color Differences a-b'], 'NumberTitle', 'off');
 axes('NextPlot','add');
 axis([ myRange_aMin,  myRange_aMax, myRange_bMin, myRange_bMax]);
 xlabel('a'); ylabel ('b');
@@ -37,5 +37,5 @@ y2 = thePoints( 4);
 x = [ x1; x2];
 y = [ y1; y2];
 
-line( x, y, 'Color', theColor);
+line( x, y, 'Color', theColor, 'LineWidth', 1.0);
 end

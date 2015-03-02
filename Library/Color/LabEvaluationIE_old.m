@@ -1,20 +1,10 @@
-function theDeltaE = LabEvaluationIE( theLabIst, theLabSoll, theAdditiveTitle, theFGraphOnOff)
+function theDeltaE = LabEvaluationIE( theLabIst, theLabSoll, theAdditiveTitle)
 %Usage: theDeltaE = LabEvaluationIE( theLabIst, theLabSoll);
 
 if exist( 'theAdditiveTitle', 'var') && ~isempty( theAdditiveTitle)
 	myAdditiveTitle = theAdditiveTitle;	
 else
 	myAdditiveTitle = '';	%default 
-end
-
-if exist( 'theFGraphOnOff', 'var') && ~isempty( theFGraphOnOff)
-	myDeltaEOn = theFGraphOnOff.DeltaEHistogram;	
-	myLabDiffOn = theFGraphOnOff.LabDiff;	
-	myColorChartOn = theFGraphOnOff.ColorChart;	
-else %default
-	myDeltaEOn = 1;
-	myLabDiffOn = 1;
-	myColorChartOn = 1;
 end
 
 % grafische Auswertung Delta E
@@ -27,9 +17,7 @@ for i=1:zeilen
      myDeltaE( i, 1) = norm( myDiff( i, :));
 end
  
-if( ~strcmp( myAdditiveTitle, ''))
-	disp( [ myAdditiveTitle, ':']);
-end
+disp( [ myAdditiveTitle, ':']);
 disp( sprintf( 'Max. Delta E: %d', max( myDeltaE)));
 disp( sprintf( 'Mean Delta E: %d', mean( myDeltaE)));
  
@@ -37,27 +25,22 @@ find ( myDeltaE == max( myDeltaE));
  
 myHistogram = hist( myDeltaE( :, 1), 0:20);
 
-if( myDeltaEOn)
-	figure( 'Name', [ myAdditiveTitle, ' Delta E Histogram'], 'NumberTitle', 'off');
-	plot( myHistogram / sum( myHistogram), 'LineWidth', 2);
-	hold on;
-	axis ([0 25 0 0.35]);
-	hold off;
-end
+figure( 'Name', [ myAdditiveTitle, ' Delta E Histogram'], 'NumberTitle', 'off');
+plot( myHistogram / sum( myHistogram));
+hold on;
+axis ([0 25 0 0.35]);
+hold off;
+
 
 % grafische Auswertung aller a-b Diferenzen
 myI1LabData = theLabSoll;
 myImageLabData = theLabIst;
 myRange = [-100, 100, -100, 100];
-if( myLabDiffOn)
-	showLabDifferenceDiagram( myI1LabData, myImageLabData, myRange, myAdditiveTitle);
-end
+showLabDifferenceDiagram( myI1LabData, myImageLabData, myRange, myAdditiveTitle);
 
 myI1LabPatchImage = formatImage( myI1LabData);
 myCamLabPatchImage = formatImage( myImageLabData);
 
-if( myColorChartOn)
-	showLabDiffImages( myI1LabPatchImage, myCamLabPatchImage, 20, 10, myAdditiveTitle);
-end
+showLabDiffImages( myI1LabPatchImage, myCamLabPatchImage, 20, 10, myAdditiveTitle);
 
 theDeltaE = myDeltaE;
