@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 02-Mar-2015 12:34:54
+% Last Modified by GUIDE v2.5 02-Mar-2015 14:10:01
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -174,6 +174,7 @@ myControl.ganglion.gauss.size = floor(3*get(handles.ganglionGaussSize, 'Value'))
 myControl.ganglion.gauss.sigma = get(handles.ganglionGaussSigma, 'Value');
 
 myControl.demosaic = get(handles.demosaicToggle, 'Value');
+myControl.luminance = get(handles.luminanceToggle, 'Value');
 
 myControl.GradationOffset.Offset = get(handles.offsetSlider, 'Value');
 myControl.GradationOffset.RGBGradation = get(handles.gradationSlider, 'Value');
@@ -315,3 +316,12 @@ function offsetSlider_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+
+% --- Executes on button press in luminanceToggle.
+function luminanceToggle_Callback(hObject, eventdata, handles)
+% hObject    handle to luminanceToggle (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of luminanceToggle

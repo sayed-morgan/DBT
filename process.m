@@ -8,15 +8,35 @@ else
 end
 %imdisplay(CFA, 'CFA');
 
-% bipolar cells
-% The default value for hsize is [3 3]; the default value for sigma is 0.5.
-Imbi = tonemap(CFA, myControl.bipol.Kappa, myControl.bipol.gauss.size, myControl.bipol.gauss.sigma);
-% imdisplay(Imbi, 'bipolar');
+if myControl.luminance
+    myLogOffset = 10^-9;
+    myDensityImage = log10( CFA + myLogOffset);
+    myNormalizedImage = myDensityImage;%normalizeImage( myDensityImage, myControl.WB.DeltaD);
+    
+    %RGB->Lab-Trafo
+    myLabImage = immatmul( myNormalizedImage, myControl.RGB2Lab);
 
-% ganglion cells
-Imga = tonemap(Imbi, myControl.ganglion.Kappa, myControl.ganglion.gauss.size, myControl.ganglion.gauss.sigma);
-% imdisplay(Imga, 'ganglion');
+    %Tone Mapping on Luminance
+    myLabImage( :, :, 1) = tonemap( myLabImage( :, :, 1), myControl.bipol.Kappa, myControl.bipol.gauss.size, myControl.bipol.gauss.sigma);
+    myLabImage( :, :, 1) = tonemap( myLabImage( :, :, 1), myControl.ganglion.Kappa, myControl.ganglion.gauss.size, myControl.ganglion.gauss.sigma);
 
+    %Lab-Rücktrafo
+    Imga = imMatMul(myLabImage, myControl.Lab2RGB);
+    Imga = im2double(10.^Imga);
+else
+    % bipolar cells
+    % The default value for hsize is [3 3]; the default value for sigma is 0.5.
+    disp(myControl.bipol);
+    disp(myControl.bipol.gauss);
+    Imbi = tonemap(CFA, myControl.bipol.Kappa, myControl.bipol.gauss.size, myControl.bipol.gauss.sigma);
+    % imdisplay(Imbi, 'bipolar');
+
+    disp(myControl.ganglion);
+    disp(myControl.ganglion.gauss);
+    % ganglion cells
+    Imga = tonemap(Imbi, myControl.ganglion.Kappa, myControl.ganglion.gauss.size, myControl.ganglion.gauss.sigma);
+    % imdisplay(Imga, 'ganglion');
+end
 
 % demosaicing
 if myControl.demosaic
@@ -27,18 +47,11 @@ else
     Iout = Imga;
 end
 
-%normalize
-% Iout = normalizeImage( Iout, myControl.WB.DeltaD);
 
 % gradation & offset
-disp(myControl.GradationOffset.RGBGradation);
-disp(myControl.GradationOffset.Offset);
 Iout = Iout.* myControl.GradationOffset.RGBGradation - myControl.GradationOffset.Offset;
 
 % convert to sRGB
-Iout = im2uint16(Iout);
-Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', '*sRGB'); 
-disp(min(Iout(:)));
-disp(max(Iout(:)));
+Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', 'ICCProfiles/sRGB.icm'); 
 end
 
