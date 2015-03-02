@@ -47,6 +47,12 @@ else
     Iout = Imga;
 end
 
+% wb
+if myControl.WB.enabled
+    Iout = im2uint16(Iout);
+    Iout = grayworld(Iout);
+    Iout = im2double(Iout);
+end
 
 % gradation & offset
 Iout = Iout.* myControl.GradationOffset.RGBGradation - myControl.GradationOffset.Offset;

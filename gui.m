@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 02-Mar-2015 14:10:01
+% Last Modified by GUIDE v2.5 02-Mar-2015 16:01:08
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -175,6 +175,7 @@ myControl.ganglion.gauss.sigma = get(handles.ganglionGaussSigma, 'Value');
 
 myControl.demosaic = get(handles.demosaicToggle, 'Value');
 myControl.luminance = get(handles.luminanceToggle, 'Value');
+myControl.WB.enabled = get(handles.wbToggle, 'Value');
 
 myControl.GradationOffset.Offset = get(handles.offsetSlider, 'Value');
 myControl.GradationOffset.RGBGradation = get(handles.gradationSlider, 'Value');
@@ -325,3 +326,12 @@ function luminanceToggle_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of luminanceToggle
+
+
+% --- Executes on button press in wbToggle.
+function wbToggle_Callback(hObject, eventdata, handles)
+% hObject    handle to wbToggle (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of wbToggle

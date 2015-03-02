@@ -1,6 +1,6 @@
 function theControl = buildControlDataIE()
 
-%Farb-/Dichtekorrekturen
+theControl.WB.enabled = 1;
 theControl.WB.DeltaD = [0;0;0];
 
 %Gradation/Offsetkorrektur
