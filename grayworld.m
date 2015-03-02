@@ -4,7 +4,7 @@ function out = grayworld(I)
 %   out - Color Balanced 24-bit RGB Image
 %
 %   Gaurav Jain, 2010.
-
+    I = im2uint16(I);
     out = uint16(zeros(size(I,1), size(I,2), size(I,3)));
     
     %R,G,B components of the input image
@@ -26,7 +26,7 @@ function out = grayworld(I)
     mB = mB/maxRGB;
    
     %Scale the values
-     out(:,:,1) = R*mR;
-     out(:,:,2) = G*mG;
-     out(:,:,3) = B*mB;
+    out(:,:,1) = R*mR;
+    out(:,:,2) = G*mG;
+    out(:,:,3) = B*mB;
 end

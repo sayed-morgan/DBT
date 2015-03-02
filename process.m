@@ -26,13 +26,9 @@ if myControl.luminance && ~myControl.demosaic
 else
     % bipolar cells
     % The default value for hsize is [3 3]; the default value for sigma is 0.5.
-    disp(myControl.bipol);
-    disp(myControl.bipol.gauss);
     Imbi = tonemap(CFA, myControl.bipol.Kappa, myControl.bipol.gauss.size, myControl.bipol.gauss.sigma);
     % imdisplay(Imbi, 'bipolar');
 
-    disp(myControl.ganglion);
-    disp(myControl.ganglion.gauss);
     % ganglion cells
     Imga = tonemap(Imbi, myControl.ganglion.Kappa, myControl.ganglion.gauss.size, myControl.ganglion.gauss.sigma);
     % imdisplay(Imga, 'ganglion');
@@ -49,15 +45,13 @@ end
 
 % wb
 if myControl.WB.enabled
-    Iout = im2uint16(Iout);
-    Iout = grayworld(Iout);
-    Iout = im2double(Iout);
+    Iout = im2double(grayworld(Iout));
 end
 
 % gradation & offset
 Iout = Iout.* myControl.GradationOffset.RGBGradation - myControl.GradationOffset.Offset;
 
 % convert to sRGB
-Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', 'ICCProfiles/sRGB.icm');
+Iout = imColorTransform(Iout, 'ICCProfiles/sRGBLinear.icc', '*sRGB');
 end
 
