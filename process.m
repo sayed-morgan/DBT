@@ -8,7 +8,7 @@ else
 end
 %imdisplay(CFA, 'CFA');
 
-if myControl.luminance
+if myControl.luminance && ~myControl.demosaic
     myLogOffset = 10^-9;
     myDensityImage = log10( CFA + myLogOffset);
     myNormalizedImage = myDensityImage;%normalizeImage( myDensityImage, myControl.WB.DeltaD);
@@ -58,6 +58,6 @@ end
 Iout = Iout.* myControl.GradationOffset.RGBGradation - myControl.GradationOffset.Offset;
 
 % convert to sRGB
-Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', 'ICCProfiles/sRGB.icm'); 
+Iout = imColorTransform( Iout, 'ICCProfiles/sRGBLinear.icc', 'ICCProfiles/sRGB.icm');
 end
 
