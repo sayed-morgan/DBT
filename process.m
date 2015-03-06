@@ -11,7 +11,7 @@ end
 if myControl.luminance && ~myControl.demosaic
     myLogOffset = 10^-9;
     myDensityImage = log10( CFA + myLogOffset );
-    myNormalizedImage = myDensityImage;%normalizeImage( myDensityImage, myControl.WB.DeltaD);
+    myNormalizedImage = myDensityImage; % no normalization
     
     %RGB->Lab-Trafo
     myLabImage = immatmul( myNormalizedImage, myControl.RGB2Lab);
