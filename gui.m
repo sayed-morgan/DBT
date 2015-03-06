@@ -22,7 +22,7 @@ function varargout = gui(varargin)
 
 % Edit the above text to modify the response to help gui
 
-% Last Modified by GUIDE v2.5 02-Mar-2015 16:01:08
+% Last Modified by GUIDE v2.5 06-Mar-2015 14:35:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -176,6 +176,8 @@ myControl.ganglion.gauss.sigma = get(handles.ganglionGaussSigma, 'Value');
 myControl.demosaic = get(handles.demosaicToggle, 'Value');
 myControl.luminance = get(handles.luminanceToggle, 'Value');
 myControl.WB.enabled = get(handles.wbToggle, 'Value');
+
+myControl.sRGB = get(handles.sRGBToggle, 'Value');
 
 myControl.GradationOffset.Offset = get(handles.offsetSlider, 'Value');
 myControl.GradationOffset.RGBGradation = get(handles.gradationSlider, 'Value');
@@ -335,3 +337,20 @@ function wbToggle_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of wbToggle
+
+
+% --- Executes on button press in sRGBToggle.
+function sRGBToggle_Callback(hObject, eventdata, handles)
+% hObject    handle to sRGBToggle (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of sRGBToggle
+
+
+% --- Executes on button press in showInputImage.
+function showInputImage_Callback(hObject, eventdata, handles)
+% hObject    handle to showInputImage (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+imshow(handles.image, 'parent', handles.axes2);
